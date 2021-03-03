@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shop-ist": {
+      "hosting": {
+        "Shop-ist": [
+          "shop-ist"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 align-self-center text-center">
+      <div class="card border-0">
+        <div class="card-body mt-5">
+          <h3 class="text-center">Shop List</h3>
+          <h5 *ngIf="items.length == 0" class="text-primary">There is nothing to buy.</h5>
+          <table *ngIf="items.length > 0"class="table table-striped mt-5">
+            <thead
+              class="thead border-0 text-white"
+              style="background: #131313"
+            >
+              <tr>
+                <th class="text-left border-0">Still to buy</th>
+                <th class="text-center border-0">Quantity</th>
+                <th class="text-center border-0">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-transparent " *ngFor="let item of items">
+                <td class="text-left pl-3 border-0">{{ item.name }}</td>
+                <td class="text-center border-0">{{ item.quantity }}</td>
+                <td class="text-center border-0">
+                  <span class="mx-2">
+                    <i
+                      class="fas fa-pen text-primary csr-pointer icon-size-edit"
+                    [routerLink]="['/edit/', item.id]"></i>
+                  </span>
+                  <span class="mx-2">
+                    <i
+                      (click)="deleteItem(item.id)"
+                      class="fas fa-minus-square text-danger csr-pointer icon-size-clean"
+                    ></i>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
