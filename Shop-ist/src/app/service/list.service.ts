@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,14 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class ListService {
   
-  constructor(private firestore: AngularFirestore, public db: AngularFireDatabase) {}
+  constructor(private firestore: AngularFirestore, public db: AngularFireDatabase , private router:Router) {}
 
   addItem(item: any, uid:string): Promise<any>{
     //return this.firestore.collection('item').add(item);
     const path = `items/${uid}/${item.name}`
     return this.db.object(path).set(item)
       .then(clase => {
-        //this.router.navigate(['/clases/', user.uid, clase]);
+        this.router.navigate([uid, '/shop-list']);
       })
       .catch(error => {
           console.log(error);

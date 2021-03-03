@@ -19,6 +19,7 @@ export class CreateShopListComponent implements OnInit {
   id: string | null;
   title = 'Add new Item';
   public user$: Observable<any> = this.authSvc.afAuth.user;
+  user: any;
 
   constructor(
     private builder: FormBuilder,
@@ -35,6 +36,7 @@ export class CreateShopListComponent implements OnInit {
       quantity: ['', Validators.required],
     });
     this.id = this.aRoute.snapshot.paramMap.get('id');
+    
     console.log(this.id);
   }
 
@@ -78,7 +80,7 @@ export class CreateShopListComponent implements OnInit {
           }
         );
         this.loading = false;
-        this.router.navigate(['/shop-list']);
+        this.router.navigate([this.uid,'/shop-list']);
       })
       .catch((error) => {
         console.log(error);
@@ -99,12 +101,11 @@ export class CreateShopListComponent implements OnInit {
       this.toastr.info('The Item was modified correctly.', 'Successfully modified',{
         positionClass: 'toast-bottom-right'
       })
-      this.router.navigate(['/shop-list']);
+      this.router.navigate([this.user,'/shop-list']);
     })
   }
 
   editItem() {
-    this.title = 'Edit Item';
     
     if (this.id !== null) {
       

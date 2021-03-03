@@ -6,7 +6,7 @@
     <div class="col">
         <h1 class="text-center display-4 text-light mt-5 font-weight-bold" >Welcome <span class="display-5 text-dark font-weight-bold">{{user?.email}}</span></h1>
       <div class="col d-flex align-items-center justify-content-center">
-        <button type="button" class="btn btn-warning font-weight-bold" style="outline:none;" routerLink="/add-new">New List</button>
+        <button type="button" class="btn btn-warning font-weight-bold" style="outline:none;" [routerLink]="['/',user.uid,'shop-list']">New List</button>
       </div>
     </div>
   </div>

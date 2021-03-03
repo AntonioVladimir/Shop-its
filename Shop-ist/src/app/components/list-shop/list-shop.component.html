@@ -23,11 +23,6 @@
                 <td class="text-center border-0">
                   <span class="mx-2">
                     <i
-                      class="fas fa-pen text-primary csr-pointer icon-size-edit"
-                    [routerLink]="['/',uid,'edit', item.name]"></i>
-                  </span>
-                  <span class="mx-2">
-                    <i
                       (click)="deleteItem(item.name)"
                       class="fas fa-minus-square text-danger csr-pointer icon-size-clean"
                     ></i>
