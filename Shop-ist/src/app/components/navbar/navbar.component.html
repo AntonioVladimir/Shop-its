@@ -43,21 +43,21 @@
       <a
         *ngIf="user"
         class="nav-item nav-link active text-light my-1 my-lg-0 ml-2 text-center"
-        routerLink="/profile"
+        [routerLink]="['/',user.uid,'profile']"
         >Profile</a
       >
       <a
         *ngIf="user"
         class="nav-item nav-link text-light my-1 my-lg-0 ml-2 text-center"
-        routerLink="/shop-list"
+        [routerLink]="['/',user.uid,'shop-list']"
         >My List</a
       >
 
       <button
         class="nav-item nav-link btn btn-warning text-dark font-weight-bold mr-1 px-4 mt-1 my-lg-0 ml-2"
-        routerLink="/add-new"
         routerLinkActive="router-link-active"
         *ngIf="user"
+        [routerLink]="['/',user.uid,'add-new']"
       >
         New List
       </button>

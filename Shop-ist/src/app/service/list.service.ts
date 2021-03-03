@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -7,24 +8,40 @@ import { Observable } from 'rxjs';
 })
 export class ListService {
   
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, public db: AngularFireDatabase) {}
 
-    
-  }
-  addItem(item: any): Promise<any>{
-    return this.firestore.collection('item').add(item);
-  }
-  getItems(): Observable<any>{
-    return this.firestore.collection('item', ref => ref.orderBy('creationDate','asc')).snapshotChanges();
-  }
-  deleteItem(id: string): Promise<any>{
-    return this.firestore.collection('item').doc(id).delete();
+  addItem(item: any, uid:string): Promise<any>{
+    //return this.firestore.collection('item').add(item);
+    const path = `items/${uid}/${item.name}`
+    return this.db.object(path).set(item)
+      .then(clase => {
+        //this.router.navigate(['/clases/', user.uid, clase]);
+      })
+      .catch(error => {
+          console.log(error);
+      });
   }
 
-  getOneItem(id: string):Observable<any>{
-    return this.firestore.collection('item').doc(id).snapshotChanges();
+  getItems(uid:string): Observable<any>{
+    //return this.firestore.collection('item', ref => ref.orderBy('creationDate','asc')).snapshotChanges();
+    const path = `items/${uid}`
+    //console.log(this.db.list(path).snapshotChanges())
+    return this.db.list(path).snapshotChanges();
   }
-  updateItem(id: string, data: any):Promise<any>{
-    return this.firestore.collection('item').doc(id).update(data);
+  deleteItem(name: string, uid:string): Promise<any>{
+    //return this.firestore.collection('item').doc(id).delete();
+    const path = `items/${uid}/${name}`
+    return this.db.object(path).remove();
+  }
+
+  getOneItem(name: string, uid: string):Observable<any>{
+    const path = `items/${uid}/${name}`
+    //return this.firestore.collection('item').doc(id).snapshotChanges();
+    return this.db.list(path).snapshotChanges();
+  }
+  updateItem(item: any, uid: string):Promise<any>{
+    const path = `items/${uid}/${item.name}`
+    //return this.firestore.collection('item').doc(id).update(data);
+    return this.db.object(path).update(item)
   }
 }

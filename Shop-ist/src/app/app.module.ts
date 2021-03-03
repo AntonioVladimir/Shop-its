@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './service/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    AngularFireDatabaseModule
 
 
   ],

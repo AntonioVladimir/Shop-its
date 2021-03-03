@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -10,11 +11,13 @@ export class ProfileComponent implements OnInit {
 
   public isLogged =false;
   public user:any;
-  constructor(private authSvc: AuthService) { }
+  uid!:string;
+  constructor(private authSvc: AuthService, private rutaActiva: ActivatedRoute) { }
 
   async ngOnInit() {
     console.log('nav->');
     this.user = await this.authSvc.getCurrentUser()
+    this.uid = this.rutaActiva.snapshot.params.uid;
     if(this.user){
       this.isLogged = true;
     }

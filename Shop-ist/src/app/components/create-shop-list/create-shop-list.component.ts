@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
 import { ListService } from 'src/app/service/list.service';
 
 @Component({
@@ -15,13 +18,17 @@ export class CreateShopListComponent implements OnInit {
   loading = false;
   id: string | null;
   title = 'Add new Item';
+  public user$: Observable<any> = this.authSvc.afAuth.user;
 
   constructor(
     private builder: FormBuilder,
     private _listSerice: ListService,
     private router: Router,
     private toastr: ToastrService,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    public afAuth: AngularFireAuth,
+    private authSvc: AuthService,
+    private rutaActiva: ActivatedRoute
   ) {
     this.addItem = this.builder.group({
       name: ['', Validators.required],
@@ -31,7 +38,10 @@ export class CreateShopListComponent implements OnInit {
     console.log(this.id);
   }
 
+  uid!:string;
+
   ngOnInit(): void {
+    this.uid = this.rutaActiva.snapshot.params.uid;
     this.editItem();
   }
 
@@ -54,10 +64,11 @@ export class CreateShopListComponent implements OnInit {
       quantity: this.addItem.value.quantity,
       creationDate: new Date(),
       updateDate: new Date(),
+      user: this.uid
     };
     this.loading = true;
     this._listSerice
-      .addItem(item)
+      .addItem(item, this.uid)
       .then(() => {
         this.toastr.success(
           'The item was successfully added to the list.',
@@ -80,6 +91,7 @@ export class CreateShopListComponent implements OnInit {
       name: this.addItem.value.name,
       quantity: this.addItem.value.quantity,
       updateDate: new Date(),
+      user: this.uid
     };
     this.loading=true;
     this._listSerice.updateItem(id, item).then(()=>{
@@ -97,7 +109,7 @@ export class CreateShopListComponent implements OnInit {
     if (this.id !== null) {
       
       this.loading = true;
-      this._listSerice.getOneItem(this.id).subscribe(data => {
+      this._listSerice.getOneItem(this.id,this.uid).subscribe(data => {
         this.loading = false;
         this.addItem.setValue({
           name: data.payload.data()['name'],
