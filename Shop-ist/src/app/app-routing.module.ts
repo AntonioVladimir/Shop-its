@@ -11,10 +11,10 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   //login yet______________________________________________
-  { path: ':uid/shop-list', component: ListShopComponent },
-  { path: ':uid/add-new', component: CreateShopListComponent },
-  { path: ':uid/edit/:id', component: CreateShopListComponent },
-  { path: ':uid/profile', component: ProfileComponent},
+  { path: 'shop-list', component: ListShopComponent },
+  { path: 'add-new', component: CreateShopListComponent },
+  { path: 'edit/:id', component: CreateShopListComponent },
+  { path: 'profile', component: ProfileComponent},
   //-------------------------------------------------------
   { path: 'login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) },
   { path: 'register', loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule) },

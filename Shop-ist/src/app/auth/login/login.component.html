@@ -1,8 +1,14 @@
+
 <div class="row mt-5">
   <div class="col-md-6 col-xl-3 col-sm-6 mx-auto mt-5">
     <div class="card border-0 shadow">
       <div class="card-body">
-        <h1 class="text-center">LOGIN</h1>
+        <h1 class="text-center">LOGIN
+          <div *ngIf="loading" class="spinner-grow float-right" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </h1>
+        
         <form [formGroup]="login" (ngSubmit)="onLogin()">
           <div class="form-group">
             <label for="email">Email</label>

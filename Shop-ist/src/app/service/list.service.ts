@@ -14,7 +14,7 @@ export class ListService {
   addItem(item: any): Promise<any>{
     return this.firestore.collection('item').add(item);
   }
-  getItems(uid:string): Observable<any>{
+  getItems(): Observable<any>{
     return this.firestore.collection('item', ref => ref.orderBy('creationDate','asc')).snapshotChanges();
   }
   deleteItem(id: string): Promise<any>{

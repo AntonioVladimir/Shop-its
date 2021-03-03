@@ -1,9 +1,9 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-sm-8 align-self-center text-center">
-      <div class="card border-0">
-        <div class="card-body mt-5">
-          <h3 class="text-center">Shop List</h3>
+    <div class="col-sm-12 col-md-8 col-xs-6 align-self-center text-center">
+      <div class="card border-0 bg-transparent">
+        <div class="card-body mt-5 ">
+          <h1 class="text-center  text-light mt-5 font-weight-bold" style="background: #131313">Shop List</h1>
           <h5 *ngIf="items.length == 0" class="text-primary">There is nothing to buy.</h5>
           <table *ngIf="items.length > 0"class="table table-striped mt-5">
             <thead
@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-transparent " *ngFor="let item of items">
+              <tr class="bg-light " *ngFor="let item of items">
                 <td class="text-left pl-3 border-0">{{ item.name }}</td>
                 <td class="text-center border-0">{{ item.quantity }}</td>
                 <td class="text-center border-0">
